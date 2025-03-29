@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oppalina Corp - Web3 Services</title>
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --dark-color: #0d1b2a;
+            --light-color: #f8f9fa;
+            --accent-color: #00f5d4;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+        
+        nav {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 1rem 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            padding: 5rem 0;
+            text-align: center;
+            background: url('/api/placeholder/1200/400') center/cover;
+            background-blend-mode: overlay;
+            background-color: rgba(13, 27, 42, 0.7);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .services {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: var(--accent-color);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .service-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .about {
+            padding: 5rem 0;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .about-image img {
+            width: 100%;
+            display: block;
+        }
+        
+        .contact {
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 5px;
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--accent-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .social-link:hover {
+            color: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">OPPALINA CORP</div>
+            <div class="tagline">Empowering the Web3 Ecosystem</div>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Your Gateway to Web3 Excellence</h1>
+            <p>At Oppalina Corp, we provide cutting-edge Web3 infrastructure and development services to help businesses thrive in the decentralized future.</p>
+            <a href="#contact" class="btn">Get Started</a>
+        </div>
+    </section>
+    
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Validator Node Hosting</h3>
+                    <p>Secure, reliable, and high-performance validator nodes for proof-of-stake networks. We offer 99.9% uptime guarantee with 24/7 monitoring and maintenance.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>RPC Node Solutions</h3>
+                    <p>Fast and scalable RPC nodes for seamless blockchain connectivity. Our infrastructure ensures minimal latency and maximum throughput for your dApps.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>Web3 Development</h3>
+                    <p>End-to-end Web3 development services including smart contracts, dApps, and blockchain integration. Our team of experts will bring your Web3 vision to life.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>DeFi Solutions</h3>
+                    <p>Custom DeFi protocol development and deployment. We help you navigate the complex DeFi landscape with secure and efficient solutions.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>NFT Development</h3>
+                    <p>Complete NFT ecosystem development, from smart contracts to marketplaces. Unlock the potential of NFTs for your business or creative endeavors.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>Blockchain Consulting</h3>
+                    <p>Strategic blockchain consulting to help you make informed decisions about Web3 integration. Our experts provide tailored advice for your specific needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">About Oppalina Corp</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="Oppalina Corp Team">
+                </div>
+                <div class="about-text">
+                    <p>Founded in 2022, Oppalina Corp has quickly established itself as a leading provider of Web3 infrastructure and development services. Our team of blockchain experts and developers are passionate about building the decentralized future.</p>
+                    <p>We believe in the transformative power of blockchain technology and Web3 principles. Our mission is to make these technologies accessible, reliable, and beneficial for businesses and individuals alike.</p>
+                    <p>At Oppalina Corp, we pride ourselves on our technical expertise, commitment to security, and dedication to customer satisfaction. We work closely with our clients to understand their unique needs and deliver tailored solutions that exceed expectations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <select class="form-control">
+                        <option value="" disabled selected>Select Service</option>
+                        <option value="validator">Validator Node Hosting</option>
+                        <option value="rpc">RPC Node Solutions</option>
+                        <option value="development">Web3 Development</option>
+                        <option value="defi">DeFi Solutions</option>
+                        <option value="nft">NFT Development</option>
+                        <option value="consulting">Blockchain Consulting</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">LinkedIn</a>
+                <a href="#" class="social-link">GitHub</a>
+                <a href="#" class="social-link">Discord</a>
+            </div>
+            <p>&copy; 2025 Oppalina Corp. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
