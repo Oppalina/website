@@ -333,16 +333,19 @@
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
-            <form class="contact-form">
+            <form class="contact-form" action="mailto:contact@oppalina.xyz" method="post" enctype="text/plain">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Your Name">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Your Email">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
                 </div>
                 <div class="form-group">
-                    <select class="form-control">
-                        <option value="" disabled selected>Select Service</option>
+                    <label class="form-label">Service</label>
+                    <select class="form-control" name="service" required>
+                        <option value="" disabled selected>Select a service</option>
                         <option value="validator">Validator Node Hosting</option>
                         <option value="rpc">RPC Node Solutions</option>
                         <option value="development">Web3 Development</option>
@@ -352,7 +355,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" placeholder="Your Message"></textarea>
+                    <label class="form-label">Message</label>
+                    <textarea class="form-control" name="message" placeholder="Tell us about your project" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
