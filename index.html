@@ -5,306 +5,563 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oppalina Corp - Web3 Services</title>
     <style>
-        :root {
-            --primary-color: #3a86ff;
-            --secondary-color: #8338ec;
-            --dark-color: #0d1b2a;
-            --light-color: #f8f9fa;
-            --accent-color: #00f5d4;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        :root {
+            --primary: #FF4757;
+            --primary-dark: #E6333F;
+            --secondary: #2C3E50;
+            --accent: #3498DB;
+            --bg-dark: #0A0E27;
+            --bg-gradient-start: #0F1729;
+            --bg-gradient-end: #1A1F3A;
+            --text-light: #ECF0F1;
+            --text-muted: #95A5A6;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.1);
+        }
+
         body {
-            background-color: var(--dark-color);
-            color: var(--light-color);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: var(--text-light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        
+
+        /* Animated background particles */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.2); }
+            50% { transform: translate(-50px, -200px) scale(0.8); }
+            75% { transform: translate(-150px, -50px) scale(1.1); }
+        }
+
+        /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            padding: 2rem 0;
-            text-align: center;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: white;
-            letter-spacing: 1px;
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-top: 0.5rem;
-        }
-        
-        nav {
-            background-color: rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 39, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 1000;
             padding: 1rem 0;
         }
-        
-        nav ul {
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
-            justify-content: center;
-            list-style: none;
-            gap: 2rem;
+            justify-content: space-between;
+            align-items: center;
         }
-        
-        nav a {
-            color: white;
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary) 0%, #FF6B6B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
         }
-        
-        nav a:hover {
-            color: var(--accent-color);
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
         }
-        
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 1;
         }
-        
+
+        /* Hero Section */
         .hero {
-            padding: 5rem 0;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            background: url('/api/placeholder/1200/400') center/cover;
-            background-blend-mode: overlay;
-            background-color: rgba(13, 27, 42, 0.7);
+            padding: 4rem 0;
         }
-        
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--primary) 50%, #FF6B6B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
-        
+
         .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        
-        .btn {
+
+        .cta-button {
             display: inline-block;
-            background: var(--primary-color);
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 5px;
             text-decoration: none;
+            border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.3);
         }
-        
-        .btn:hover {
-            background: var(--secondary-color);
+
+        .cta-button:hover {
             transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.5);
         }
-        
-        .services {
-            padding: 5rem 0;
+
+        /* Section Titles */
+        .section {
+            padding: 6rem 0;
         }
-        
+
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.2rem;
-            color: var(--accent-color);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Services Grid */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
+            margin-top: 3rem;
         }
-        
+
         .service-card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 2rem;
-            transition: transform 0.3s;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            backdrop-filter: blur(10px);
         }
-        
+
         .service-card:hover {
             transform: translateY(-10px);
-            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(255, 71, 87, 0.2);
+            border-color: var(--primary);
         }
-        
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(255, 71, 87, 0.5));
+        }
+
         .service-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
             font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
         }
-        
-        .about {
-            padding: 5rem 0;
-            background-color: rgba(0, 0, 0, 0.2);
+
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
         }
-        
+
+        /* About Section */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
         }
-        
+
         .about-image {
-            border-radius: 10px;
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
-        
+
         .about-image img {
             width: 100%;
+            height: auto;
             display: block;
+            transition: transform 0.5s;
         }
-        
-        .contact {
-            padding: 5rem 0;
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
             text-align: center;
         }
-        
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Contact Form */
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
-        .form-control {
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 1rem;
-            border: none;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 5px;
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .submit-btn {
-            background: var(--accent-color);
-            color: var(--dark-color);
-            border: none;
-            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: var(--text-light);
             font-size: 1rem;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
             font-weight: 600;
-            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        
-        .submit-btn:hover {
-            background: var(--primary-color);
-            color: white;
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 71, 87, 0.4);
         }
-        
+
+        /* Footer */
         footer {
-            background-color: rgba(0, 0, 0, 0.3);
-            padding: 2rem 0;
+            background: rgba(10, 14, 39, 0.9);
+            border-top: 1px solid var(--card-border);
+            padding: 3rem 0 1.5rem;
             text-align: center;
+            margin-top: 6rem;
         }
-        
+
         .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
         }
-        
-        .social-link {
-            color: white;
-            font-size: 1.5rem;
-            transition: color 0.3s;
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 0 0.5rem;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
         }
-        
-        .social-link:hover {
-            color: var(--accent-color);
+
+        .social-links a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-5px);
         }
-        
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
             .about-content {
                 grid-template-columns: 1fr;
             }
-            
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: center;
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
+    <!-- Header -->
     <header>
-        <div class="container">
-            <div class="logo">🌶️OPPALINA CORP</div>
-            <div class="tagline">Empowering the Web3 Ecosystem</div>
-        </div>
+        <nav>
+            <div class="logo">
+                <span>🌶️</span>
+                OPPALINA CORP
+            </div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-    
+
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Your Gateway to Web3 Excellence</h1>
-            <p>At Oppalina Corp, we provide cutting-edge Web3 infrastructure and development services to help businesses thrive in the decentralized future.</p>
-            <a href="#contact" class="btn">Get Started</a>
+            <div class="hero-content">
+                <h1>Your Gateway to<br>Web3 Excellence</h1>
+                <p>Empowering the Web3 ecosystem with cutting-edge infrastructure and development services</p>
+                <a href="#contact" class="cta-button">Get Started</a>
+            </div>
         </div>
     </section>
-    
-    <section class="services" id="services">
+
+    <!-- Stats Section -->
+    <div class="container">
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime Guarantee</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Monitoring</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2024</div>
+                    <div class="stat-label">Founded</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
         <div class="container">
             <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive Web3 solutions tailored to your needs</p>
+            
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">🌐</div>
                     <h3>Validator Node Hosting</h3>
                     <p>Secure, reliable, and high-performance validator nodes for proof-of-stake networks. We offer 99.9% uptime guarantee with 24/7 monitoring and maintenance.</p>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">⚡</div>
                     <h3>RPC Node Solutions</h3>
                     <p>Fast and scalable RPC nodes for seamless blockchain connectivity. Our infrastructure ensures minimal latency and maximum throughput for your dApps.</p>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">💻</div>
                     <h3>Web3 Development</h3>
                     <p>End-to-end Web3 development services including smart contracts, dApps, and blockchain integration. Our team of experts will bring your Web3 vision to life.</p>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">💰</div>
                     <h3>DeFi Solutions</h3>
                     <p>Custom DeFi protocol development and deployment. We help you navigate the complex DeFi landscape with secure and efficient solutions.</p>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">🎨</div>
                     <h3>NFT Development</h3>
                     <p>Complete NFT ecosystem development, from smart contracts to marketplaces. Unlock the potential of NFTs for your business or creative endeavors.</p>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-icon">📊</div>
                     <h3>Blockchain Consulting</h3>
@@ -313,15 +570,16 @@
             </div>
         </div>
     </section>
-    
-    <section class="about" id="about">
+
+    <!-- About Section -->
+    <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">About Oppalina Corp</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="./oppalina-small.png" alt="Oppalina Corp Team">
+                    <img src="./oppalina-small.png" alt="Oppalina Corp Team" onerror="this.style.display='none'">
                 </div>
                 <div class="about-text">
+                    <h2>About Oppalina Corp</h2>
                     <p>Founded in 2024, Oppalina Corp has quickly established itself as a leading provider of Web3 infrastructure and development services. Our team of blockchain experts and developers are passionate about building the decentralized future.</p>
                     <p>We believe in the transformative power of blockchain technology and Web3 principles. Our mission is to make these technologies accessible, reliable, and beneficial for businesses and individuals alike.</p>
                     <p>At Oppalina Corp, we pride ourselves on our technical expertise, commitment to security, and dedication to customer satisfaction. We work closely with our clients to understand their unique needs and deliver tailored solutions that exceed expectations.</p>
@@ -329,23 +587,28 @@
             </div>
         </div>
     </section>
-    
-    <section class="contact" id="contact">
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
-            <form class="contact-form" action="mailto:contact@oppalina.xyz" method="post" enctype="text/plain">
+            <p class="section-subtitle">Ready to start your Web3 journey? Let's talk!</p>
+            
+            <form class="contact-form">
                 <div class="form-group">
-                    <label class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
+
                 <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
+
                 <div class="form-group">
-                    <label class="form-label">Service</label>
-                    <select class="form-control" name="service" required>
-                        <option value="" disabled selected>Select a service</option>
+                    <label for="service">Service</label>
+                    <select id="service" name="service" required>
+                        <option value="">Select a service</option>
                         <option value="validator">Validator Node Hosting</option>
                         <option value="rpc">RPC Node Solutions</option>
                         <option value="development">Web3 Development</option>
@@ -354,22 +617,66 @@
                         <option value="consulting">Blockchain Consulting</option>
                     </select>
                 </div>
+
                 <div class="form-group">
-                    <label class="form-label">Message</label>
-                    <textarea class="form-control" name="message" placeholder="Tell us about your project" required></textarea>
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Send Message</button>
+
+                <button type="submit" class="submit-button">Send Message</button>
             </form>
         </div>
     </section>
-    
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://github.com/Oppalina" class="social-link">GitHub</a>
+                <a href="https://github.com/Oppalina" target="_blank" aria-label="GitHub">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
             </div>
-            <p>&copy; 2025 Oppalina Corp. All rights reserved.</p>
+            <p class="copyright">© 2025 Oppalina Corp. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Create animated background particles
+        const bgAnimation = document.getElementById('bgAnimation');
+        for (let i = 0; i < 15; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 60 + 20 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.opacity = Math.random() * 0.3;
+            bgAnimation.appendChild(particle);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
